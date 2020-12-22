@@ -25,5 +25,7 @@
         </config-file>
 
         <source-file src="src/android/CordovaEpochSDK.java" target-dir="src/com/cordova/plugin/CordovaEpochSDK" />
+        <source-file src="src/android/EpochDataSyncReceiver.java" target-dir="src/com/cordova/plugin/CordovaEpochSDK" />
+        <source-file src="src/android/epoch_datasync_v1.1.1-androidX.aar" target-dir="libs"/>
     </platform>
 </plugin>
