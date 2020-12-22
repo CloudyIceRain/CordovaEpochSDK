@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="CordovaEpochSDK" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>CordovaEpochSDK</name>
+    <js-module name="CordovaEpochSDK" src="www/CordovaEpochSDK.js">
+        <clobbers target="cordova.plugins.CordovaEpochSDK" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <feature name="CordovaEpochSDK">
+                <param name="android-package" value="com.cordova.plugin.CordovaEpochSDK.CordovaEpochSDK" onload="true" />
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+	        <receiver
+	            android:name="com.cordova.plugin.CordovaEpochSDK.EpochDataSyncReceiver"
+	            android:enabled="true"
+	            android:exported="false">
+	            <intent-filter>
+	                <action android:name="com.yinda.datasyc.app_init.DATASYNC_BROADCAST_ACTION" />
+	            </intent-filter>
+	        </receiver>
+        </config-file>
+
+        <source-file src="src/android/CordovaEpochSDK.java" target-dir="src/com/cordova/plugin/CordovaEpochSDK" />
+    </platform>
+</plugin>
