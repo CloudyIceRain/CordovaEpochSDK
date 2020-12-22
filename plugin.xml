@@ -13,7 +13,7 @@
             </feature>
         </config-file>
 
-        <config-file target="AndroidManifest.xml" parent="/*">
+        <config-file target="AndroidManifest.xml" parent="application">
 	        <receiver
 	            android:name="com.cordova.plugin.CordovaEpochSDK.EpochDataSyncReceiver"
 	            android:enabled="true"

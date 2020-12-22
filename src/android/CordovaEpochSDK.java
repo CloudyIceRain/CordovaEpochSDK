@@ -3,6 +3,7 @@ package com.cordova.plugin.CordovaEpochSDK;
 import android.app.Activity;
 import android.content.Context;
 
+import org.apache.cordova.BuildConfig;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 
@@ -13,7 +14,8 @@ import org.json.JSONObject;
 import com.yinda.datasyc.http.SDKManage;
 
 public class CordovaEpochSDK extends CordovaPlugin {
-    private static int test_func_A(Context ctx, String _APP_ID, String _SECRET) {
+    public static String m_uploadUrl = "";
+    private static int initEpochSDK(Context ctx, String _APP_ID, String _SECRET) {
         try{
             /**
              * @param context
@@ -30,6 +32,7 @@ public class CordovaEpochSDK extends CordovaPlugin {
     }
     private static int syncData(Context context, String borrowId, String userId, String phoneNum, String uploadUrl) {
         try{
+            m_uploadUrl = uploadUrl;
             SDKManage.getInstance().SynData(borrowId, userId, phoneNum, uploadUrl);
             return 0;//正常返回
         }catch(Exception e){
@@ -42,7 +45,7 @@ public class CordovaEpochSDK extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext   callbackContext) throws JSONException {
         Activity activity = this.cordova.getActivity();//获取项目activity的方法
         Context context = this.cordova.getContext();//获取项目context的方法
-        
+
         if (action.equals("initEpochSDK")) {
             String _APP_ID = args.getString(0);//如何获取传入的参数
             String _SECRET = args.getString(1);
