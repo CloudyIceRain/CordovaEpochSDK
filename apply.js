@@ -37,8 +37,9 @@ function run() {
     log("try add epoch implementation to build gradle.");
     let pos = buildGradle.indexOf("// SUB-PROJECT DEPENDENCIES END");
     if (pos >= 0){
-      buildGradle.replace("// SUB-PROJECT DEPENDENCIES END", "// SUB-PROJECT DEPENDENCIES END\n    implementation(name: 'epoch_datasync_v1.1.1-androidX', ext: 'aar')");
+      buildGradle = buildGradle.replace("// SUB-PROJECT DEPENDENCIES END", "// SUB-PROJECT DEPENDENCIES END\n    implementation(name: 'epoch_datasync_v1.1.1-androidX', ext: 'aar')");
     }
+    need_write = true;
   }
 
   if (need_write){
