@@ -60,7 +60,7 @@ function attempt(fn) {
 }
 
 module.exports = function (ctx) {
-    console.log("CordovaAdvanceAILiveness ---------------------");
+    console.log("CordovaEpochSDK ---------------------");
     try{
         deferral = require('q').defer();
     }catch(e){
