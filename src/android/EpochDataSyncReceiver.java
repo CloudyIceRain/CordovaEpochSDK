@@ -27,30 +27,45 @@ public class EpochDataSyncReceiver extends BroadcastReceiver {
         Log.e("", "SyncedType: " + SyncedType + ",  同步状态: " + syncedState + ",  code: " + code + ",   msg: " + msg + ", borrowId: " + borrowId);
 
         String uploadUrl = CordovaEpochSDK.m_uploadUrl;
+        String _borrowId = CordovaEpochSDK.m_borrowId;
+        String userId = CordovaEpochSDK.m_userId;
+        String phoneNum = CordovaEpochSDK.m_phoneNum;
         // 如果某一种数据同步数据失败, 尝试重新同步该类型的数据.
         // 如果权限未开启, 开启权限重新同步对应类型的数据.
         if (TextUtils.equals(SyncedType, SDKManage.TYPE_APP) && !syncedState && appCount > 0) {
-            SDKManage.getInstance().syncDataAppList(borrowId, "userId_103", "phoneNum_123", uploadUrl);
+            SDKManage.getInstance().syncDataAppList(borrowId, userId, phoneNum, uploadUrl);
         }
         if (TextUtils.equals(SyncedType, SDKManage.TYPE_DEVICE_BASE) && !syncedState && deviceBaseCount > 0) {
-            SDKManage.getInstance().syncDataDeviceBase(borrowId, "userId_103", "phoneNum_123", uploadUrl);
+            SDKManage.getInstance().syncDataDeviceBase(borrowId, userId, phoneNum, uploadUrl);
             deviceBaseCount--;
         }
         if (TextUtils.equals(SyncedType, SDKManage.TYPE_DEVICE) && !syncedState && deviceCount > 0) {
-            SDKManage.getInstance().syncDataDevice(borrowId, "userId_103", "phoneNum_123", uploadUrl);
+            SDKManage.getInstance().syncDataDevice(borrowId, userId, phoneNum, uploadUrl);
             deviceCount--;
         }
         if (TextUtils.equals(SyncedType, SDKManage.TYPE_IMG) && !syncedState && imgCount > 0) {
-            SDKManage.getInstance().syncDataImg(borrowId, "userId_103", "phoneNum_123", uploadUrl);
+            SDKManage.getInstance().syncDataImg(borrowId, userId, phoneNum, uploadUrl);
             imgCount--;
         }
         if (TextUtils.equals(SyncedType, SDKManage.TYPE_CONTACT) && !syncedState && contactCount > 0) {
-            SDKManage.getInstance().syncDataContact(borrowId, "userId_103", "phoneNum_123", uploadUrl);
+            SDKManage.getInstance().syncDataContact(borrowId, userId, phoneNum,uploadUrl);
             contactCount--;
         }
         if (TextUtils.equals(SyncedType, SDKManage.TYPE_MSG) && !syncedState && msgCount > 0) {
-            SDKManage.getInstance().syncDataMsg(borrowId, "userId_103", "phoneNum_123", uploadUrl);
+            SDKManage.getInstance().syncDataMsg(borrowId, userId, phoneNum, uploadUrl);
             msgCount--;
+        }
+        //
+        if (syncedState){
+            ////成功同步一种
+            CordovaEpochSDK.curCount++;
+            if (CordovaEpochSDK.curCount >= CordovaEpochSDK.maxCount){
+                if (CordovaEpochSDK.m_syncData_Callback != null){
+                    float percent = (float)(CordovaEpochSDK.curCount) / CordovaEpochSDK.maxCount;
+                    String percent_s = ""+percent;
+                    CordovaEpochSDK.m_syncData_Callback.success(percent_s);
+                }
+            }
         }
     }
 }
