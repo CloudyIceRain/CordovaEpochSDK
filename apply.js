@@ -1,4 +1,4 @@
-var PLUGIN_NAME = "CordovaAdvanceAILiveness";
+var PLUGIN_NAME = "CordovaEpochSDK";
 var BUILD_GRADLE_PATH = "./platforms/android/app/build.gradle";
 
 var deferral, fs, path;
@@ -33,7 +33,7 @@ function run() {
 
   //添加arr的解析
   let search_str2 = "implementation(name: 'epoch_datasync_v1.1.1-androidX', ext: 'aar')";
-  if (buildGradle.indexOf(search_str) == -1){
+  if (buildGradle.indexOf(search_str2) == -1){
     //没有这个字符串
     log("try add epoch implementation to build gradle.");
     let pos = buildGradle.indexOf("// SUB-PROJECT DEPENDENCIES END");
